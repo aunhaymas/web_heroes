@@ -10,6 +10,30 @@
 <body data-bs-theme="dark">
     <!-- Bootstrap .JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-md-10 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <img src="" alt="" id="hero_image" class="w-100">
+                            </div>
+                            <div class="col-6">
+                                <h2 id="hero_name"></h2>
+                                <h4 id="real_name"></h4>
+                                <h4 id="race"></h4>
+                                <h4 id="gender"></h4>
+                                <h4 id="alignment" class="text-decoration-underline"></h4>
+                                <h4 id="publisher"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
     <script>
         const params = new URLSearchParams(window.location.search)
         console.log(params)
@@ -17,7 +41,42 @@
         if (id==null){
             window.location.href = "/";
         }
-        console.log(id)
+        function received_response(response){
+            return response.json();
+        }
+        function handle_data(data){
+            console.log(data)
+            const hero_name = document.getElementById("hero_name");
+            const real_name = document.getElementById("real_name");
+            const race = document.getElementById("race");
+            const gender = document.getElementById("gender");
+            const alignment = document.getElementById("alignment");
+            const publisher = document.getElementById("publisher");
+            const image=document.getElementById("hero_image");
+            hero_name.innerText = data.name;
+            real_name.innerText = data.names;
+            race.innerText = data.race;
+            gender.innerText = data.gender;
+            alignment.innerText = data.alignment;
+            publisher.innerText = data.publisher;
+            image.setAttribute("src",data.image);
+            image.setAttribute("alt",data.name+" image");
+            if(data.alignment==="good"){
+                alignment.classList.add("text-success")
+            }else if (data.alignment==="bad"){
+                alignment.classList.add("text-danger")
+            }else{
+                alignment.classList.add("text-warning")
+            }
+        }
+        function request_error(error){
+            console.log("There was an error: ",error);
+        }
+        fetch(`http://localhost:5000/characters/${id}`)
+            .then(received_response)
+            .then(handle_data)
+            .catch(request_error)
+
     </script>
 </body>
 </html>
