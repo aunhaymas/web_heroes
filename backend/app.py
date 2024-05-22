@@ -12,3 +12,7 @@ CORS(app)
 def home():
     print(get_all_characters)
     return get_all_characters()
+
+@app.route("/characters/<id>")
+def character_id(id):
+    return get_character_by_id(id)
