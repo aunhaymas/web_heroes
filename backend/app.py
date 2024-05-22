@@ -1,12 +1,14 @@
 from flask import Flask
-app = Flask(__name__)
 
-@app.route("/")
+#for multi-server communication
+from flask_cors import CORS 
+
+from db.characters import *
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route("/characters")
 def home():
-    return """
-    <html>
-    <body>
-    <h1>Mendigo, mercachinfle!</h1>
-    </body>
-    </html>
-    """
+    print(get_all_characters)
+    return get_all_characters()
