@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heroes</title>
+</head>
+<body>
+    <h1>Heroes</h1>
+    <ul id="list">
+        
+    </ul>
+    <script>
+        function received_response(response)//Info about the response
+        {
+            return response.json();
+        }
+        function parse_data(data)/*Actual data from response*/
+        {
+            console.log("la lista de personajes!")
+            const list_item = document.getElementById("list")
+            for(let i=0 ; i< data.length; i++)
+            {
+                const item = document.createElement("li")
+                item.append(data[i].name)
+                list_item.append(item)
+            }
+
+        }
+        function request_error(error)
+        {
+            console.log("noooo");
+            console.log(error)
+        }
+        fetch("http://localhost:5000/characters")
+        .then(received_response)
+        .then(parse_data)
+        .catch(request_error)
+    </script>
+</body>
+</html>
