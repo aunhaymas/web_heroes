@@ -17,3 +17,6 @@ def home():
 def character_id(id):
     return get_character_by_id(id)
 
+@app.route("/characters/<id>", methods = ["DELETE"])
+def remove_character_by_id(id):
+    return {"Success: ": remove_character(id)}
