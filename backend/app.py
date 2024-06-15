@@ -16,3 +16,4 @@ def home():
 @app.route("/characters/<id>")
 def character_id(id):
     return get_character_by_id(id)
+
