@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="btn btn-danger" onclick="remove_character()">Remove</div>
-                    <div class="btn btn-warning" onclick="edit_character()">Edit</div>
+                    <div class="btn btn-warning" id="btn_edit" onclick="edit_character()">Edit</div>
                 </div>
             </div>
         </div>
@@ -43,6 +43,8 @@
         if (id==null){
             window.location.href = "/";
         }
+        //document.getElementById("btn_edit").setAttribute("href", `characters/edit?id=${id}`)
+
         function received_response(response){
             return response.json();
         }
@@ -104,7 +106,8 @@
             }
         }
         function edit_character(){
-            return
+            console.log(`Editing character ${id}...`);
+                window.location.href = `/edit?id=${id}`;
         }
         fetch(`http://localhost:5000/characters/${id}`)
             .then(received_response)
