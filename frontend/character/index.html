@@ -32,6 +32,7 @@
                     </div>
                     <div class="btn btn-danger" onclick="remove_character()">Remove</div>
                     <div class="btn btn-warning" id="btn_edit" onclick="edit_character()">Edit</div>
+                    <div class="btn" onclick="go_home()">Home</div>
                 </div>
             </div>
         </div>
@@ -113,7 +114,10 @@
             .then(received_response)
             .then(handle_data)
             .catch(request_error)
-
+        
+            function go_home(){
+                window.location.href="/"
+            }
     </script>
 </body>
 </html>
