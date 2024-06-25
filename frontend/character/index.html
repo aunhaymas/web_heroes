@@ -22,11 +22,15 @@
                             </div>
                             <div class="col-6">
                                 <h2 id="hero_name"></h2>
-                                <h4 id="real_name"></h4>
                                 <h4 id="race"></h4>
                                 <h4 id="gender"></h4>
                                 <h4 id="alignment" class="text-decoration-underline"></h4>
                                 <h4 id="publisher"></h4>
+                                
+                                <ul id="real_name">
+                                    <h4>Alternatives Names</h4>
+                                </ul>
+                            
                             </div>
                         </div>
                     </div>
@@ -55,14 +59,13 @@
 
             console.log(data)
             const hero_name = document.getElementById("hero_name");
-            const real_name = document.getElementById("real_name");
             const race = document.getElementById("race");
             const gender = document.getElementById("gender");
             const alignment = document.getElementById("alignment");
             const publisher = document.getElementById("publisher");
             const image=document.getElementById("hero_image");
             hero_name.innerText = data.name;
-            real_name.innerText = data.names;
+            
             race.innerText = data.race;
             gender.innerText = data.gender;
             alignment.innerText = data.alignment;
@@ -75,6 +78,13 @@
                 alignment.classList.add("text-danger")
             }else{
                 alignment.classList.add("text-warning")
+            }
+            const names_list = data.names.split(",")
+            const real_name = document.getElementById("real_name");
+            for (let index = 0; index < names_list.length; index++){
+                const element = document.createElement("li")
+                element.innerText=names_list[index]
+                real_name.append(element)
             }
         }
         function request_error(error){
