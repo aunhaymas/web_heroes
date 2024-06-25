@@ -143,10 +143,28 @@
                   />
                 </div>
 
-                <button type="submit" class="btn btn-success">Update</button>
-                <div class="btn btn-warning" onclick="reset_character()">
-                  Reset
+                <!-------------------------------------------------------------------------------------------->
+                <!----------------------------------------Buttons--------------------------------------------->
+                <div class="container text-center">
+                  <div class="row align-items-end">
+                    <div class="col">
+                      <button type="submit" class="btn btn-success">
+                        Update
+                      </button>
+                    </div>
+                    <div class="col">
+                      <div class="btn btn-warning" onclick="reset_character()">
+                        Reset
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="btn" onclick="go_home()">Home</div>
+                    </div>
+                  </div>
                 </div>
+                <!----------------------------------------Buttons--------------------------------------------->
+                <!-------------------------------------------------------------------------------------------->
+                
               </form>
             </div>
           </div>
@@ -157,7 +175,6 @@
       const params = new URLSearchParams(window.location.search);
       console.log(params);
       const id = params.get("id");
-      console.log(id);
       fetch(`http://localhost:5000/characters/${id}`)
         .then((res) => res.json())
         .then(default_values)
@@ -174,7 +191,7 @@
       }
       function handle_response(data) {
         if (data.success) {
-          window.location.href = `/character/?id=${data.id}`;
+          window.location.href = `/character/?id=${id}`;
         } else {
           alert("An error has ocurred! Try again");
         }
@@ -191,6 +208,7 @@
           event.target
         ); /* https://developer.mozilla.org/en/docs/Web/API/FormData */
         /*form obtiene los datos del atributo name de cada etiqueta*/
+
         const name = form.get("name");
         const names = form.get("names");
         const alignment = form.get("alignment");
@@ -198,14 +216,14 @@
         const gender = form.get("gender");
         const image = form.get("image");
         const race = form.get("race");
-
         fetch("http://localhost:5000/characters", {
-          method: "POST",
+          method: "PUT",
           headers: {
             /*Con los headers le estoy diciendo que el contenido va a ser detipo JSON*/
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            id: id,
             name: name,
             names: names,
             alignment: alignment,
@@ -224,6 +242,9 @@
           .then((res) => res.json())
           .then(default_values)
           .catch((error) => console.log("Error: ", error));
+      }
+      function go_home() {
+        window.location.href = "/";
       }
     </script>
   </body>

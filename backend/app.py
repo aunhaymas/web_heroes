@@ -63,3 +63,28 @@ def _create_character():
         "race": race,
     }
     return {"success": add_character(character), "id": id}
+#EDITAR CHAR
+
+@app.route("/characters", methods=["PUT"])
+def _edit_character():
+    id = request.json.get("id")
+    name = request.json.get("name")
+    names = request.json.get("names")
+    alignment = request.json.get("alignment")
+    gender = request.json.get("gender")
+    publisher = request.json.get("publisher")
+    race = request.json.get("race")
+    image = request.json.get("image")
+    character = {
+        "id": id,
+        "gender": gender,
+        "alignment": alignment,
+        "image": image,
+        "name": name,
+        "names": names,
+        "publisher": publisher,
+        "race": race,
+    }
+    return{"success": edit_character(character)}
+    
+    
