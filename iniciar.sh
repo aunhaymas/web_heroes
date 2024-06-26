@@ -12,8 +12,8 @@ function cerrar() {
 
   echo "Cerrando python3 server"
   pkill -f "python3 -m http.server"
+  gnome-terminal --tab -- bash -c "git restore data/; exec bash"
 }
-gnome-terminal --tab -- bash -c "git restore data/; exec bash"
 
 echo "Activando el entorno virtual..."
 source venv/bin/activate
@@ -32,5 +32,5 @@ cd backend/ && flask run --debug &
 echo "Iniciando el servidor frontend..."
 gnome-terminal --tab -- bash -c "cd frontend/ && python3 -m http.server; exec bash"
 
-gnome-terminal --tab -- bash -c "code .; exec bash"
+gnome-terminal --tab -- bash -c "code ."
 wait
